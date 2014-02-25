@@ -81,7 +81,7 @@ int main(int argc, const char * argv[])
             free(board[i]);
         }
         free(board);
-        printf("THIS ALGO IS BROKEN");
+        printf("THIS ALGO IS BROKEN!!!\n");
     }
     return 0;
 }
