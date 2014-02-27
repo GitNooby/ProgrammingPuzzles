@@ -43,8 +43,8 @@ void permuteString(char *str, int start, int end) {
 int main(int argc, const char * argv[])
 {
     @autoreleasepool {
-        char str[] = "abcd";
-        permuteString(str, 0, strlen(str)-1);
+        char str[] = "abcdef";
+        permuteString(str, 0, (int)strlen(str)-1);
     }
     return 0;
 }
