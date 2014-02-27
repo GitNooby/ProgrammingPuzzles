@@ -9,79 +9,67 @@
 #import <Foundation/Foundation.h>
 #include <stdio.h>
 
-int N = 4;
-char **board;
+int N = 9;
+int *queenAtColOfRow;
 
-void printBoard() {
-    for (int i=0; i<N; i++) {
-        for (int j=0; j<N; j++) {
-            printf("%c", board[j][i]);
-        }
-        printf("\n");
-    }
-}
-
-bool safe(char **board, int col, int row) {
-    for (int i=0; i<N; i++) {
-        for (int j=0; j<N; j++) {
-            char c = board[j][i];
-            if (j == row && c == 'x') {
-                return false;
-            }
-            if (i == col && c == 'x') {
-                return false;
-            }
+bool isSafe(int row) {
+    for (int r=0; r<row; r++) {
+        int c = queenAtColOfRow[r];
+        int col = queenAtColOfRow[row];
+        if (c == col) {
+            return false;
+        } else if (abs(c-col) == abs(r-row)) {
+            return false;
         }
     }
     return true;
 }
 
-void solveNQueens(char **board, int rows) {
-    if (rows == N) {
-        printBoard();
+void printBoard() {
+    for (int row=0; row<N; row++) {
+        int c = queenAtColOfRow[row];
+        for (int col=0; col<N; col++) {
+            if (c == col) {
+                printf("Q ");
+            } else {
+                printf(". ");
+            }
+        }
         printf("\n");
-        return;
+    }
+    printf("\n");
+}
+
+int solveNQueens(int row) {
+    if (row == N) {
+        printBoard();
+        return 1;
     }
     
-    for (int i=0; i<N; i++) {
-        if (safe(board, i, rows)) {
-            board[i][rows] = 'x';
-        }
-        solveNQueens(board, rows+1);
-        if (safe(board, i, rows)) {
-            board[i][rows] = '.';
+    int solutionCount = 0;
+    for (int col=0; col<N; col++) {
+        queenAtColOfRow[row] = col;
+        if (isSafe(row) == true) {
+            solutionCount += solveNQueens(row + 1);
         }
     }
-    
+    return solutionCount;
 }
 
 int main(int argc, const char * argv[])
 {
     @autoreleasepool {
-        
-
-        
-        board = NULL;
-        board = (char**)malloc(sizeof(char*)*N);
+        queenAtColOfRow = NULL;
+        queenAtColOfRow = (int*)malloc(sizeof(int)*N);
         for (int i=0; i<N; i++) {
-            *(board+i) = (char*)malloc(sizeof(char)*N);
+            queenAtColOfRow[i] = -1;
         }
         
-        for (int i=0; i<N; i++) {
-            for (int j=0; j<N; j++) {
-//                board[j][i] = '.';
-                *(*(board+j)+i) = '.';
-            }
-        }
+        int solutions = solveNQueens(0);
         
-        solveNQueens(board, 0);
+        printf("solutions count:%d\n", solutions);
         
-        for (int i=0; i<N; i++) {
-//            free(*(board+i));
-            free(board[i]);
-        }
-        free(board);
-        printf("THIS ALGO IS BROKEN!!!\n");
+        free(queenAtColOfRow);
     }
     return 0;
 }
