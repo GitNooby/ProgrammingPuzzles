@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-NSUInteger SETSIZE = 4;
+NSUInteger SETSIZE = 100;
 NSMutableArray *inputSet;
 
 NSMutableArray* findPowerSet(NSMutableArray* set, int index) {
     NSMutableArray* powerSet;
     if (index == set.count) {
         powerSet = [[NSMutableArray alloc] init];
-        NSMutableArray *subset = [[NSMutableArray alloc] init];
+        NSMutableArray *subset = [[NSMutableArray alloc] init]; //the empty set
         [powerSet addObject:subset];
     } else {
         powerSet = findPowerSet(set, index + 1);
