@@ -29,6 +29,7 @@
 #include <unistd.h>
 #include <fstream>
 #include <unordered_map>
+#include <map>
 #include <ctime>
 
 //#include "DoublyLinkedList.h"
@@ -66,6 +67,7 @@ public:
         tail = head = nullptr;
         currSize = 0;
         maxSize = size;
+        maxSize = maxSize < 0 ? 0 : maxSize;
     }
     ~DoublyLinkedList();
     void insertFront(string k, string v);
@@ -75,7 +77,8 @@ public:
     ListNode* getNode(string k);
     ListNode* peekNode(string k);
     void setMaxSize(int newMaxSize);
-    vector<ListNode*> printAllWithKeyAlphabetical();
+//    vector<ListNode*> printAllWithKeyAlphabetical();
+    map<string, ListNode*> printAllWithKeyAlphabetical();
     void printDLL();
 };
 
@@ -86,20 +89,22 @@ bool customCompare(const ListNode *a, const ListNode *b) {
     return false;
 }
 
-vector<ListNode*> DoublyLinkedList::printAllWithKeyAlphabetical() {
-    vector<ListNode*> vectList;
-    
-    ListNode *aNode = this->head;
-    while (aNode != nullptr) {
-        //        ListNode newNode = ListNode(aNode->key, aNode->value);
-        vectList.push_back(aNode);
-        //        vectList.push_back(ListNode(aNode->key, aNode->value));
-        aNode = aNode->next;
-    }
-    
-    sort(vectList.begin(), vectList.end(), customCompare);
-    
-    return vectList;
+//vector<ListNode*> DoublyLinkedList::printAllWithKeyAlphabetical() {
+map<string, ListNode*> DoublyLinkedList::printAllWithKeyAlphabetical() {
+//    vector<ListNode*> vectList;
+//    
+//    ListNode *aNode = this->head;
+//    while (aNode != nullptr) {
+//        //        ListNode newNode = ListNode(aNode->key, aNode->value);
+//        vectList.push_back(aNode);
+//        //        vectList.push_back(ListNode(aNode->key, aNode->value));
+//        aNode = aNode->next;
+//    }
+//    
+//    sort(vectList.begin(), vectList.end(), customCompare);
+    map<string, ListNode*> ordered(hashMap.begin(), hashMap.end());
+    return ordered;
+//    return hashMap;
 }
 
 void DoublyLinkedList::printDLL() {
@@ -131,20 +136,25 @@ DoublyLinkedList::~DoublyLinkedList() {
 }
 
 void DoublyLinkedList::insertFront(string k, string v) {
-    ListNode *aNode = new ListNode(k, v);
+    ListNode *aNode = this->findNode(k);
+    
+    if (aNode != nullptr) {
+        aNode->value = v;
+    } else {
+        aNode = new ListNode(k, v);
+        hashMap[aNode->key] = aNode;
+        this->currSize++;
+    }
     
     if (this->head == nullptr) {
         this->head = aNode;
         this->tail = aNode;
-        this->currSize++;
     } else {
         ListNode *frontNode = head;
         this->head = aNode;
         aNode->next = frontNode;
         frontNode->prev = aNode;
-        this->currSize++;
     }
-    hashMap[aNode->key] = aNode;
     
     while (this->currSize > this->maxSize) {
         this->deleteNode(this->tail);
@@ -180,6 +190,8 @@ void DoublyLinkedList::deleteNode(ListNode *node) {
     if (node == this->tail && node == this->head) {
         this->tail = nullptr;
         this->head = nullptr;
+        unordered_map<string, ListNode*>::iterator it = hashMap.find(node->key);
+        hashMap.erase(it);
         delete node;
         currSize--;
         return;
@@ -215,6 +227,9 @@ ListNode* DoublyLinkedList::getNode(string k) {
     if (aNode == this->head) {
         return aNode;
     }
+    if (aNode == this->tail) {
+        this->tail = aNode->prev;
+    }
     
     ListNode *before = aNode->prev;
     ListNode *after = aNode->next;
@@ -238,6 +253,9 @@ ListNode* DoublyLinkedList::peekNode(string k) {
 
 void DoublyLinkedList::setMaxSize(int newMaxSize) {
     this->maxSize = newMaxSize;
+    if (this->maxSize < 0) {
+        this->maxSize = 0;
+    }
     while (this->currSize > this->maxSize) {
         this->deleteNode(this->tail);
     }
@@ -259,7 +277,7 @@ inline std::vector<std::string> split(const std::string &s, char delim) {
     return elems;
 }
 
-#define DEBUGME 1
+#define DEBUGME 0
 #define PRINTALL 0
 
 int main() {
@@ -269,11 +287,11 @@ int main() {
     
 #if DEBUGME
     cout << "start" << endl;
-    clock_t time = clock();
+    clock_t startTime = clock();
 #endif
     
 #if DEBUGME
-    ifstream infile("/Users/kaizou/Documents/test_dir/ProgrammingPuzzles/challenges/BoxChallenge001/BoxChallenge001/test.txt");
+    ifstream infile("/Users/kaizou/Documents/test_dir/ProgrammingPuzzles/challenges/BoxChallenge001/BoxChallenge001/manualTest.txt");
     if (infile.is_open() == false) {
         printf("file error\n");
         return -1;
@@ -282,6 +300,7 @@ int main() {
     
     DoublyLinkedList *dll = new DoublyLinkedList(0);
     
+    // determine number of commands
     string numCommands;
 #if DEBUGME
     getline(infile, numCommands);
@@ -290,12 +309,106 @@ int main() {
 #endif
     int cmdsSize = atoi(numCommands.c_str());
 
-#if PRINTALL
-    cout << "cmdsSize " << cmdsSize << endl;
+    // helper strings
+    string line;
+    string inputString = "";
+    string finalOutputString = "";
+    
+    
+    // get all the input here
+    for (int i=0; i<cmdsSize; i++) {
+#if DEBUGME
+        getline(infile, line);
+#else
+        getline(cin, line);
+#endif
+        inputString += line + "\n";
+    }
+    
+#if DEBUGME
+    clock_t doneReadTime = clock();
 #endif
     
-    string line;
-    string finalOutputString = "";
+    // process all the input here
+    vector<string> commands = split(inputString, '\n');
+    
+    for (int i=0; i<commands.size(); i++) {
+        string cmd = commands[i];
+        vector<string> args = split(cmd, ' ');
+        if (args[0].compare("BOUND") == 0) {
+            int newMaxSize = atoi(args[1].c_str());
+            dll->setMaxSize(newMaxSize);
+        } else if (args[0].compare("SET") == 0) {
+//            cout << "run SET" << endl;
+            dll->insertFront(args[1], args[2]);
+        } else if (args[0].compare("GET") == 0) {
+//            cout << "run GET" << endl;
+            ListNode *aNode = dll->getNode(args[1]);
+            if (aNode == nullptr) {
+                //                cout << "NULL" << endl;
+                finalOutputString += "NULL\n";
+            } else {
+                //                cout << aNode->value << endl;
+                finalOutputString += aNode->value + "\n";
+            }
+        } else if (args[0].compare("PEEK") == 0) {
+//            cout << "run PEEK" << endl;
+            ListNode *aNode = dll->peekNode(args[1]);
+            if (aNode == nullptr) {
+                //                cout << "NULL" << endl;
+                finalOutputString += "NULL\n";
+            } else {
+                //                cout << aNode->value << endl;
+                finalOutputString += aNode->value + "\n";
+            }
+        } else if (args[0].compare("DUMP") == 0) {
+//            vector<ListNode*> vectList = dll->printAllWithKeyAlphabetical();
+//            for (int i=0; i<vectList.size(); i++) {
+//                finalOutputString += vectList[i]->key + " " + vectList[i]->value + "\n";
+//            }
+            map<string, ListNode*> mapList = dll->printAllWithKeyAlphabetical();
+            for (map<string, ListNode*>::iterator it=mapList.begin(); it!=mapList.end(); ++it) {
+                finalOutputString += it->first + " " + it->second->value + "\n";
+            }
+        }
+    }
+
+#if DEBUGME
+    clock_t doneProcess = clock();
+//    int asdfasdf = double(asdf) / CLOCKS_PER_SEC * 1000;
+#endif
+    
+    // print the result
+    cout << finalOutputString;
+    
+#if DEBUGME
+    clock_t donePrint = clock();
+    int readDeltaTime = double(doneReadTime-startTime) / CLOCKS_PER_SEC * 1000;
+    int processDeltaTime = double(doneProcess - doneReadTime) / CLOCKS_PER_SEC * 1000;
+    int printDeltaTime = double(donePrint - doneProcess) / CLOCKS_PER_SEC * 1000;
+    cout << "read delta:" << readDeltaTime << " process delta:" << processDeltaTime << " print delta:" << printDeltaTime << endl;
+    cout << "total:" << readDeltaTime + processDeltaTime + printDeltaTime << endl;
+#endif
+    
+#if DEBUGME
+    if (infile.is_open()) {
+        infile.close();
+    }
+#endif
+    
+    delete dll;
+    
+//#if DEBUGME
+//    time = clock() - doneCompute;
+//    int ms = double(time) / CLOCKS_PER_SEC * 1000;
+//    cout << "time spend in ms " << ms+computeTime << endl;
+//    cout << "compute time " << computeTime << endl;
+//    cout << "print time " << ms << endl;
+//#endif
+    
+    return 0;
+    
+    /*
     for (int i=0; i<cmdsSize; i++) {
 #if DEBUGME
         getline(infile, line);
@@ -364,18 +477,6 @@ int main() {
                 finalOutputString += vectList[i]->key + " " + vectList[i]->value + "\n";
             }
         }
-        else {
-#if PRINTALL
-            cout << "bad command" << endl;
-            return -1;
-#endif
-        }
-        
-#if PRINTALL
-//        dll->printDLL();
-#endif
-        
-        
     }
     
 #if DEBUGME
@@ -400,7 +501,7 @@ int main() {
     cout << "compute time " << computeTime << endl;
     cout << "print time " << ms << endl;
 #endif
-    
+    */
     
     return 0;
 }

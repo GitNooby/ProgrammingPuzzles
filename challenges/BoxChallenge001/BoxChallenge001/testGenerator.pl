@@ -1,8 +1,8 @@
 #!/usr/local/bin/perl
 open (MYFILE, '>test.txt');
-#$numcmds = 1000000-1;
+#$numcmds = 1000000;
 $numcmds =  500000;
-$cacheSize = 10;
+$cacheSize = 100;
 
 print MYFILE $numcmds."\n";
 print MYFILE "BOUND ".$cacheSize."\n";
