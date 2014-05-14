@@ -29,6 +29,7 @@
 #include <unistd.h>
 #include <fstream>
 #include <unordered_map>
+#include <ctime>
 
 //#include "DoublyLinkedList.h"
 
@@ -242,7 +243,7 @@ void DoublyLinkedList::setMaxSize(int newMaxSize) {
     }
 }
 
-std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
+inline std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
     std::stringstream ss(s);
     std::string item;
     while (std::getline(ss, item, delim)) {
@@ -252,7 +253,7 @@ std::vector<std::string> &split(const std::string &s, char delim, std::vector<st
 }
 
 
-std::vector<std::string> split(const std::string &s, char delim) {
+inline std::vector<std::string> split(const std::string &s, char delim) {
     std::vector<std::string> elems;
     split(s, delim, elems);
     return elems;
@@ -265,6 +266,11 @@ int main() {
     
 //    printf("DEBUGME %d\n", DEBUGME);
 //    printf("PRINTALL %d\n", PRINTALL);
+    
+#if DEBUGME
+    cout << "start" << endl;
+    clock_t time = clock();
+#endif
     
 #if DEBUGME
     ifstream infile("/Users/kaizou/Documents/test_dir/ProgrammingPuzzles/challenges/BoxChallenge001/BoxChallenge001/test.txt");
@@ -372,6 +378,11 @@ int main() {
         
     }
     
+#if DEBUGME
+    clock_t doneCompute = clock() - time;
+    int computeTime = double(doneCompute) / CLOCKS_PER_SEC * 1000;
+#endif
+    
     cout << finalOutputString;
     
 #if DEBUGME
@@ -381,6 +392,15 @@ int main() {
 #endif
     
     delete dll;
+    
+#if DEBUGME
+    time = clock() - doneCompute;
+    int ms = double(time) / CLOCKS_PER_SEC * 1000;
+    cout << "time spend in ms " << ms+computeTime << endl;
+    cout << "compute time " << computeTime << endl;
+    cout << "print time " << ms << endl;
+#endif
+    
     
     return 0;
 }
