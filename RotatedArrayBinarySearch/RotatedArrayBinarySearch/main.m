@@ -27,12 +27,12 @@ int rotatedBinarySearch(int *A, int lenA, int val) {
                 start = mid+1;
             }
         } else if (val < A[mid]) {
-                end = mid-1;
-            } else if (val <= A[end]) {
-                start = mid+1;
-            } else {
-                end = mid-1;
-            }
+            end = mid-1;
+        } else if (val <= A[end]) {
+            start = mid+1;
+        } else {
+            end = mid-1;
+        }
     }
     return -1;
 }
@@ -44,7 +44,7 @@ int main(int argc, const char * argv[])
         int A[] = {6,7,8,9,1,2,3,4,5};
         int lenA = 9;
         
-        int index = rotatedBinarySearch(A, lenA, 5);
+        int index = rotatedBinarySearch(A, lenA, 9);
         printf("index:%d", index);
         
     }

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-NSUInteger SETSIZE = 100;
+NSUInteger SETSIZE = 3;
 NSMutableArray *inputSet;
 
 NSMutableArray* findPowerSet(NSMutableArray* set, int index) {
