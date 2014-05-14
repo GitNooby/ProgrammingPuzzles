@@ -28,6 +28,8 @@
 #include <algorithm>
 #include <unistd.h>
 #include <fstream>
+#include <unordered_map>
+
 //#include "DoublyLinkedList.h"
 
 using namespace std;
@@ -44,6 +46,7 @@ public:
         prev = next = nullptr;
     }
     bool operator<(const ListNode& a) const;
+//    bool compare(const ListNode& a, const ListNode& b);
     
 };
 
@@ -53,6 +56,8 @@ private:
     ListNode *tail;
     int currSize;
     int maxSize;
+    
+    unordered_map<string, ListNode*> hashMap;
     
     void removeLast();
 public:
@@ -69,9 +74,32 @@ public:
     ListNode* getNode(string k);
     ListNode* peekNode(string k);
     void setMaxSize(int newMaxSize);
-    vector<ListNode> printAllWithKeyAlphabetical();
+    vector<ListNode*> printAllWithKeyAlphabetical();
     void printDLL();
 };
+
+bool customCompare(const ListNode *a, const ListNode *b) {
+    if (a->key.compare(b->key) <= 0) {
+        return true;
+    }
+    return false;
+}
+
+vector<ListNode*> DoublyLinkedList::printAllWithKeyAlphabetical() {
+    vector<ListNode*> vectList;
+    
+    ListNode *aNode = this->head;
+    while (aNode != nullptr) {
+        //        ListNode newNode = ListNode(aNode->key, aNode->value);
+        vectList.push_back(aNode);
+        //        vectList.push_back(ListNode(aNode->key, aNode->value));
+        aNode = aNode->next;
+    }
+    
+    sort(vectList.begin(), vectList.end(), customCompare);
+    
+    return vectList;
+}
 
 void DoublyLinkedList::printDLL() {
     ListNode *aNode = this->head;
@@ -83,7 +111,12 @@ void DoublyLinkedList::printDLL() {
     cout << "ENDING-----" << endl;
 }
 
+
+
 bool ListNode::operator<(const ListNode& a) const {
+//    printf("thiskey:%s\n", this->key.c_str());
+//    printf("a key:%s\n", a.key.c_str());
+    
     if (this->key.compare(a.key) <= 0) {
         return true;
     }
@@ -110,6 +143,7 @@ void DoublyLinkedList::insertFront(string k, string v) {
         frontNode->prev = aNode;
         this->currSize++;
     }
+    hashMap[aNode->key] = aNode;
     
     while (this->currSize > this->maxSize) {
         this->deleteNode(this->tail);
@@ -117,13 +151,19 @@ void DoublyLinkedList::insertFront(string k, string v) {
 }
 
 ListNode* DoublyLinkedList::findNode(string k) {
-    ListNode *iter = this->head;
-    while (iter != nullptr) {
-        if (iter->key.compare(k) == 0) {
-            break;
-        }
-        iter = iter->next;
+//    ListNode *iter = this->head;
+//    while (iter != nullptr) {
+//        if (iter->key.compare(k) == 0) {
+//            break;
+//        }
+//        iter = iter->next;
+//    }
+    ListNode* iter = nullptr;
+    unordered_map<string, ListNode*>::iterator it = hashMap.find(k);
+    if (it == hashMap.end()) {
+        return nullptr;
     }
+    iter = hashMap[k];
     return iter;
 }
 
@@ -159,6 +199,8 @@ void DoublyLinkedList::deleteNode(ListNode *node) {
     if (this->head == node) {
         this->head = node->next;
     }
+    unordered_map<string, ListNode*>::iterator it = hashMap.find(node->key);
+    hashMap.erase(it);
     delete node;
     currSize--;
 }
@@ -200,21 +242,6 @@ void DoublyLinkedList::setMaxSize(int newMaxSize) {
     }
 }
 
-vector<ListNode> DoublyLinkedList::printAllWithKeyAlphabetical() {
-    vector<ListNode> vectList;
-    
-    ListNode *aNode = this->head;
-    while (aNode != nullptr) {
-        vectList.push_back(ListNode(aNode->key, aNode->value));
-        aNode = aNode->next;
-    }
-    
-//    sort(vectList.begin(), vectList.end());
-    
-    return vectList;
-}
-
-
 std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
     std::stringstream ss(s);
     std::string item;
@@ -236,9 +263,13 @@ std::vector<std::string> split(const std::string &s, char delim) {
 
 int main() {
     
+//    printf("DEBUGME %d\n", DEBUGME);
+//    printf("PRINTALL %d\n", PRINTALL);
+    
 #if DEBUGME
-    ifstream infile("/Volumes/SecondaryHDD/PersonalProjectsHDD/project_repos/ProgrammingPuzzles/challenges/BoxChallenge001/BoxChallenge001/test.txt");
+    ifstream infile("/Users/kaizou/Documents/test_dir/ProgrammingPuzzles/challenges/BoxChallenge001/BoxChallenge001/test.txt");
     if (infile.is_open() == false) {
+        printf("file error\n");
         return -1;
     }
 #endif
@@ -258,6 +289,7 @@ int main() {
 #endif
     
     string line;
+    string finalOutputString = "";
     for (int i=0; i<cmdsSize; i++) {
 #if DEBUGME
         getline(infile, line);
@@ -295,9 +327,11 @@ int main() {
 #endif
             ListNode *aNode = dll->getNode(command[1]);
             if (aNode == nullptr) {
-                cout << "NULL" << endl;
+//                cout << "NULL" << endl;
+                finalOutputString += "NULL\n";
             } else {
-                cout << aNode->value << endl;
+//                cout << aNode->value << endl;
+                finalOutputString += aNode->value + "\n";
             }
         }
         else if (command[0].compare("PEEK") == 0) {
@@ -306,18 +340,22 @@ int main() {
 #endif
             ListNode *aNode = dll->peekNode(command[1]);
             if (aNode == nullptr) {
-                cout << "NULL" << endl;
+//                cout << "NULL" << endl;
+                finalOutputString += "NULL\n";
             } else {
-                cout << aNode->value << endl;
+//                cout << aNode->value << endl;
+                finalOutputString += aNode->value + "\n";
             }
         }
         else if (command[0].compare("DUMP") == 0) {
 #if PRINTALL
             cout << "cmd: " << command[0] << endl;
 #endif
-            vector<ListNode> vectList = dll->printAllWithKeyAlphabetical();
+            vector<ListNode*> vectList = dll->printAllWithKeyAlphabetical();
+//            string outputString = "";
             for (int i=0; i<vectList.size(); i++) {
-                cout << vectList[i].key + " " + vectList[i].value << endl;
+//                cout << vectList[i]->key + " " + vectList[i]->value << endl;
+                finalOutputString += vectList[i]->key + " " + vectList[i]->value + "\n";
             }
         }
         else {
@@ -333,6 +371,8 @@ int main() {
         
         
     }
+    
+    cout << finalOutputString;
     
 #if DEBUGME
     if (infile.is_open()) {
