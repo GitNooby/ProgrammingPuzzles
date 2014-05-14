@@ -31,6 +31,7 @@
 #include <unordered_map>
 #include <map>
 #include <ctime>
+#include <cassert>
 
 //#include "DoublyLinkedList.h"
 
@@ -47,9 +48,6 @@ public:
         this->value = v;
         prev = next = nullptr;
     }
-    bool operator<(const ListNode& a) const;
-//    bool compare(const ListNode& a, const ListNode& b);
-    
 };
 
 class DoublyLinkedList {
@@ -58,53 +56,41 @@ private:
     ListNode *tail;
     int currSize;
     int maxSize;
-    
     unordered_map<string, ListNode*> hashMap;
     
-    void removeLast();
+    ListNode *findNode(string k);
+    void deleteNode(ListNode* node);
 public:
     DoublyLinkedList(int size) {
-        tail = head = nullptr;
-        currSize = 0;
-        maxSize = size;
-        maxSize = maxSize < 0 ? 0 : maxSize;
+        this->tail = this->head = nullptr;
+        this->currSize = 0;
+        this->maxSize = size;
+        this->maxSize = this->maxSize < 0 ? 0 : this->maxSize;
     }
     ~DoublyLinkedList();
     void insertFront(string k, string v);
-    void deleteNode(ListNode* node);
-    ListNode *findNode(string k);
     void deleteNode(string k);
     ListNode* getNode(string k);
     ListNode* peekNode(string k);
     void setMaxSize(int newMaxSize);
-//    vector<ListNode*> printAllWithKeyAlphabetical();
     map<string, ListNode*> printAllWithKeyAlphabetical();
     void printDLL();
 };
 
-bool customCompare(const ListNode *a, const ListNode *b) {
-    if (a->key.compare(b->key) <= 0) {
-        return true;
+ListNode* DoublyLinkedList::findNode(string k) {
+    ListNode* node = nullptr;
+    unordered_map<string, ListNode*>::iterator it = hashMap.find(k);
+    if (it == hashMap.end()) {
+        return nullptr;
     }
-    return false;
+    node = hashMap[k];
+    assert(node != nullptr);
+    return node;
 }
 
-//vector<ListNode*> DoublyLinkedList::printAllWithKeyAlphabetical() {
 map<string, ListNode*> DoublyLinkedList::printAllWithKeyAlphabetical() {
-//    vector<ListNode*> vectList;
-//    
-//    ListNode *aNode = this->head;
-//    while (aNode != nullptr) {
-//        //        ListNode newNode = ListNode(aNode->key, aNode->value);
-//        vectList.push_back(aNode);
-//        //        vectList.push_back(ListNode(aNode->key, aNode->value));
-//        aNode = aNode->next;
-//    }
-//    
-//    sort(vectList.begin(), vectList.end(), customCompare);
     map<string, ListNode*> ordered(hashMap.begin(), hashMap.end());
     return ordered;
-//    return hashMap;
 }
 
 void DoublyLinkedList::printDLL() {
@@ -117,18 +103,6 @@ void DoublyLinkedList::printDLL() {
     cout << "ENDING-----" << endl;
 }
 
-
-
-bool ListNode::operator<(const ListNode& a) const {
-//    printf("thiskey:%s\n", this->key.c_str());
-//    printf("a key:%s\n", a.key.c_str());
-    
-    if (this->key.compare(a.key) <= 0) {
-        return true;
-    }
-    return false;
-}
-
 DoublyLinkedList::~DoublyLinkedList() {
     while (this->tail != nullptr) {
         this->deleteNode(this->tail);
@@ -136,46 +110,64 @@ DoublyLinkedList::~DoublyLinkedList() {
 }
 
 void DoublyLinkedList::insertFront(string k, string v) {
-    ListNode *aNode = this->findNode(k);
+    //test cases:
+    // Type A: node already exists in list
+    //    1. node is already at head
+    //    2. node is at tail
+    //    3. node is in middle
+    //    4. only one node in list
+    // Type B: node does not exist in list
+    //    1. list is empty
+    //    2. list is not empty
     
-    if (aNode != nullptr) {
-        aNode->value = v;
-    } else {
-        aNode = new ListNode(k, v);
-        hashMap[aNode->key] = aNode;
-        this->currSize++;
+    
+    ListNode *node = this->findNode(k);
+    if (node != nullptr) {         // the node already exists in list
+        node->value = v;
+        if (node == this->head && node == this->tail) { // only one node in list
+            return;
+        }
+        if (node == this->head && node != this->tail) { // node is already in front
+            return;
+        } else if (node != this->head && node == this->tail) { // node is in back, need to move to front
+            ListNode *before = node->prev;
+            before->next = nullptr;
+            this->tail = before;
+            node->prev = nullptr;
+            node->next = this->head;
+            this->head->prev = node;
+            this->head = node;
+            return;
+        } else if (node != this->head && node != this->tail) { // node is in the middle
+            ListNode *before = node->prev;
+            ListNode *after = node->next;
+            before->next = after;
+            after->prev = before;
+            node->prev = nullptr;
+            node->next = this->head;
+            this->head->prev = node;
+            this->head = node;
+            return;
+        }
     }
-    
-    if (this->head == nullptr) {
-        this->head = aNode;
-        this->tail = aNode;
-    } else {
-        ListNode *frontNode = head;
-        this->head = aNode;
-        aNode->next = frontNode;
-        frontNode->prev = aNode;
+    else if (node == nullptr) {         // TYPE B: the node was not found in list
+        node = new ListNode(k, v);
+        hashMap[node->key] = node;
+        this->currSize++;
+        if (this->head == nullptr) { // empty list
+            assert(this->tail == nullptr);
+            this->head = node;
+            this->tail = node;
+        } else { // list is not empty, just insert in front
+            node->next = this->head;
+            this->head->prev = node;
+            this->head = node;
+        }
     }
     
     while (this->currSize > this->maxSize) {
         this->deleteNode(this->tail);
     }
-}
-
-ListNode* DoublyLinkedList::findNode(string k) {
-//    ListNode *iter = this->head;
-//    while (iter != nullptr) {
-//        if (iter->key.compare(k) == 0) {
-//            break;
-//        }
-//        iter = iter->next;
-//    }
-    ListNode* iter = nullptr;
-    unordered_map<string, ListNode*>::iterator it = hashMap.find(k);
-    if (it == hashMap.end()) {
-        return nullptr;
-    }
-    iter = hashMap[k];
-    return iter;
 }
 
 void DoublyLinkedList::deleteNode(string k) {
@@ -187,35 +179,39 @@ void DoublyLinkedList::deleteNode(ListNode *node) {
     if (node == nullptr) {
         return;
     }
-    if (node == this->tail && node == this->head) {
-        this->tail = nullptr;
-        this->head = nullptr;
-        unordered_map<string, ListNode*>::iterator it = hashMap.find(node->key);
-        hashMap.erase(it);
-        delete node;
-        currSize--;
-        return;
-    }
     
-    ListNode *before, *after;
-    before = node->prev;
-    after = node->next;
-    if (before != nullptr) {
-        before->next = after;
+    // 0. only one node
+    // 1. node is at back of list
+    // 2. node is in middle of list
+    // 3. node is at front of list
+    if (node == this->tail && node == this->head) {
+        this->head = nullptr;
+        this->tail = nullptr;
+        hashMap.erase(node->key); // note: erase() will call node's destructor, so dont call delete on node
+        currSize--;
     }
-    if (after != nullptr) {
-        after->prev = before;
-    }
-    if (this->tail == node) {
+    else if (this->head != node && this->tail == node) { // node to delete is at tail
         this->tail = node->prev;
+        this->tail->next = nullptr;
+        node->prev = nullptr;
+        hashMap.erase(node->key);
+        currSize--;
     }
-    if (this->head == node) {
+    else if (this->head == node && this->tail != node) { // node to delete is at head
         this->head = node->next;
+        this->head->prev = nullptr;
+        node->next = nullptr;
+        hashMap.erase(node->key);
+        currSize--;
     }
-    unordered_map<string, ListNode*>::iterator it = hashMap.find(node->key);
-    hashMap.erase(it);
-    delete node;
-    currSize--;
+    else if (this->head != node && this->tail != node) { // node to delete is in middle
+        ListNode *before = node->prev;
+        ListNode *after = node->next;
+        before->next = after;
+        after->next = before;
+        hashMap.erase(node->key);
+        currSize--;
+    }
 }
 
 ListNode* DoublyLinkedList::getNode(string k) {
@@ -224,38 +220,41 @@ ListNode* DoublyLinkedList::getNode(string k) {
         return nullptr;
     }
     
-    if (aNode == this->head) {
+    // 1. node is at head
+    // 2. node is at tail
+    // 3. node is in middle
+    
+    if (aNode == this->head) { // node is at head
         return aNode;
     }
-    if (aNode == this->tail) {
+    else if (aNode == this->tail && aNode != this->head) { // node is at tail
         this->tail = aNode->prev;
+        this->tail->next = nullptr;
+        aNode->prev = nullptr;
+        aNode->next = this->head;
+        this->head->prev = aNode;
+        this->head = aNode;
     }
-    
-    ListNode *before = aNode->prev;
-    ListNode *after = aNode->next;
-    if (before != nullptr) {
+    else if (aNode != this->tail && aNode != this->head) { // node is in middle
+        ListNode *before = aNode->prev;
+        ListNode *after = aNode->next;
         before->next = after;
-    }
-    if (after != nullptr) {
         after->prev = before;
+        aNode->prev = nullptr;
+        aNode->next = this->head;
+        this->head->prev = aNode;
+        this->head = aNode;
     }
-    aNode->prev = nullptr;
-    aNode->next = this->head;
-    this->head->prev = aNode;
-    this->head = aNode;
     return aNode;
 }
 
 ListNode* DoublyLinkedList::peekNode(string k) {
-    ListNode *aNode = this->findNode(k);
-    return aNode;
+    return this->findNode(k);
 }
 
 void DoublyLinkedList::setMaxSize(int newMaxSize) {
     this->maxSize = newMaxSize;
-    if (this->maxSize < 0) {
-        this->maxSize = 0;
-    }
+    this->maxSize = this->maxSize < 0 ? 0 : this->maxSize;
     while (this->currSize > this->maxSize) {
         this->deleteNode(this->tail);
     }
@@ -270,7 +269,6 @@ inline std::vector<std::string> &split(const std::string &s, char delim, std::ve
     return elems;
 }
 
-
 inline std::vector<std::string> split(const std::string &s, char delim) {
     std::vector<std::string> elems;
     split(s, delim, elems);
@@ -282,16 +280,13 @@ inline std::vector<std::string> split(const std::string &s, char delim) {
 
 int main() {
     
-//    printf("DEBUGME %d\n", DEBUGME);
-//    printf("PRINTALL %d\n", PRINTALL);
-    
 #if DEBUGME
     cout << "start" << endl;
     clock_t startTime = clock();
 #endif
     
 #if DEBUGME
-    ifstream infile("/Users/kaizou/Documents/test_dir/ProgrammingPuzzles/challenges/BoxChallenge001/BoxChallenge001/manualTest.txt");
+    ifstream infile("/Users/kaizou/Documents/test_dir/ProgrammingPuzzles/challenges/BoxChallenge001/BoxChallenge001/test.txt");
     if (infile.is_open() == false) {
         printf("file error\n");
         return -1;
@@ -314,7 +309,6 @@ int main() {
     string inputString = "";
     string finalOutputString = "";
     
-    
     // get all the input here
     for (int i=0; i<cmdsSize; i++) {
 #if DEBUGME
@@ -335,47 +329,43 @@ int main() {
     for (int i=0; i<commands.size(); i++) {
         string cmd = commands[i];
         vector<string> args = split(cmd, ' ');
+        if (args.size() <= 0 && args.size() > 3) {
+            continue;
+        }
+        
         if (args[0].compare("BOUND") == 0) {
             int newMaxSize = atoi(args[1].c_str());
             dll->setMaxSize(newMaxSize);
         } else if (args[0].compare("SET") == 0) {
-//            cout << "run SET" << endl;
             dll->insertFront(args[1], args[2]);
         } else if (args[0].compare("GET") == 0) {
-//            cout << "run GET" << endl;
             ListNode *aNode = dll->getNode(args[1]);
             if (aNode == nullptr) {
-                //                cout << "NULL" << endl;
                 finalOutputString += "NULL\n";
             } else {
-                //                cout << aNode->value << endl;
                 finalOutputString += aNode->value + "\n";
             }
         } else if (args[0].compare("PEEK") == 0) {
-//            cout << "run PEEK" << endl;
             ListNode *aNode = dll->peekNode(args[1]);
             if (aNode == nullptr) {
-                //                cout << "NULL" << endl;
                 finalOutputString += "NULL\n";
             } else {
-                //                cout << aNode->value << endl;
                 finalOutputString += aNode->value + "\n";
             }
         } else if (args[0].compare("DUMP") == 0) {
-//            vector<ListNode*> vectList = dll->printAllWithKeyAlphabetical();
-//            for (int i=0; i<vectList.size(); i++) {
-//                finalOutputString += vectList[i]->key + " " + vectList[i]->value + "\n";
-//            }
             map<string, ListNode*> mapList = dll->printAllWithKeyAlphabetical();
             for (map<string, ListNode*>::iterator it=mapList.begin(); it!=mapList.end(); ++it) {
                 finalOutputString += it->first + " " + it->second->value + "\n";
             }
         }
+        
+#if PRINTALL
+        dll->printDLL();
+#endif
     }
 
 #if DEBUGME
     clock_t doneProcess = clock();
-//    int asdfasdf = double(asdf) / CLOCKS_PER_SEC * 1000;
 #endif
     
     // print the result
@@ -398,112 +388,8 @@ int main() {
     
     delete dll;
     
-//#if DEBUGME
-//    time = clock() - doneCompute;
-//    int ms = double(time) / CLOCKS_PER_SEC * 1000;
-//    cout << "time spend in ms " << ms+computeTime << endl;
-//    cout << "compute time " << computeTime << endl;
-//    cout << "print time " << ms << endl;
-//#endif
-    
     return 0;
-    
-    /*
-    for (int i=0; i<cmdsSize; i++) {
-#if DEBUGME
-        getline(infile, line);
-#else
-        getline(cin, line);
-#endif
-        
-        vector<string> tokens = split(line, ' ');
-        
-        if (tokens.size() > 3 || tokens.size() == 0) {
-            continue;
-        }
-        string command[3] = {"", "", ""};
-        for (unsigned i=0; i<tokens.size(); i++) {
-            command[i] = tokens.at(i);
-        }
-        
-        // command processing
-        if (command[0].compare("BOUND") == 0) {
-#if PRINTALL
-            cout << "cmd: " << command[0] << " " << command[1] << endl;
-#endif
-            int newMaxSize = atoi(command[1].c_str());
-            dll->setMaxSize(newMaxSize);
-        }
-        else if (command[0].compare("SET") == 0) {
-#if PRINTALL
-            cout << "cmd: " << command[0] << " " << command[1] << " " << command[2] << endl;
-#endif
-            dll->insertFront(command[1], command[2]);
-        }
-        else if (command[0].compare("GET") == 0) {
-#if PRINTALL
-            cout << "cmd: " << command[0] << " " << command[1] << endl;
-#endif
-            ListNode *aNode = dll->getNode(command[1]);
-            if (aNode == nullptr) {
-//                cout << "NULL" << endl;
-                finalOutputString += "NULL\n";
-            } else {
-//                cout << aNode->value << endl;
-                finalOutputString += aNode->value + "\n";
-            }
-        }
-        else if (command[0].compare("PEEK") == 0) {
-#if PRINTALL
-            cout << "cmd: " << command[0] << " " << command[1] << endl;
-#endif
-            ListNode *aNode = dll->peekNode(command[1]);
-            if (aNode == nullptr) {
-//                cout << "NULL" << endl;
-                finalOutputString += "NULL\n";
-            } else {
-//                cout << aNode->value << endl;
-                finalOutputString += aNode->value + "\n";
-            }
-        }
-        else if (command[0].compare("DUMP") == 0) {
-#if PRINTALL
-            cout << "cmd: " << command[0] << endl;
-#endif
-            vector<ListNode*> vectList = dll->printAllWithKeyAlphabetical();
-//            string outputString = "";
-            for (int i=0; i<vectList.size(); i++) {
-//                cout << vectList[i]->key + " " + vectList[i]->value << endl;
-                finalOutputString += vectList[i]->key + " " + vectList[i]->value + "\n";
-            }
-        }
-    }
-    
-#if DEBUGME
-    clock_t doneCompute = clock() - time;
-    int computeTime = double(doneCompute) / CLOCKS_PER_SEC * 1000;
-#endif
-    
-    cout << finalOutputString;
-    
-#if DEBUGME
-    if (infile.is_open()) {
-        infile.close();
-    }
-#endif
-    
-    delete dll;
-    
-#if DEBUGME
-    time = clock() - doneCompute;
-    int ms = double(time) / CLOCKS_PER_SEC * 1000;
-    cout << "time spend in ms " << ms+computeTime << endl;
-    cout << "compute time " << computeTime << endl;
-    cout << "print time " << ms << endl;
-#endif
-    */
-    
-    return 0;
+
 }
 
 //int main(int argc, const char * argv[])
