@@ -26,6 +26,8 @@
 #include <vector>
 #include <sstream>
 #include <algorithm>
+#include <unistd.h>
+#include <fstream>
 //#include "DoublyLinkedList.h"
 
 using namespace std;
@@ -68,7 +70,18 @@ public:
     ListNode* peekNode(string k);
     void setMaxSize(int newMaxSize);
     vector<ListNode> printAllWithKeyAlphabetical();
+    void printDLL();
 };
+
+void DoublyLinkedList::printDLL() {
+    ListNode *aNode = this->head;
+    cout << "STARTING---" << endl;
+    while (aNode != nullptr) {
+        cout << aNode->key << " " << aNode->value << endl;
+        aNode = aNode->next;
+    }
+    cout << "ENDING-----" << endl;
+}
 
 bool ListNode::operator<(const ListNode& a) const {
     if (this->key.compare(a.key) <= 0) {
@@ -217,21 +230,40 @@ std::vector<std::string> split(const std::string &s, char delim) {
     return elems;
 }
 
+#define DEBUGME 1
+
 int main() {
+    
+#if DEBUGME
+    ifstream infile("/Volumes/SecondaryHDD/PersonalProjectsHDD/project_repos/ProgrammingPuzzles/challenges/BoxChallenge001/BoxChallenge001/test.txt");
+    if (infile.is_open() == false) {
+        return -1;
+    }
+#endif
     
     DoublyLinkedList *dll = new DoublyLinkedList(0);
     
     string numCommands;
+#if DEBUGME
+    getline(infile, numCommands);
+#else
     getline(cin, numCommands);
+#endif
     int cmdsSize = atoi(numCommands.c_str());
 
+#if DEBUGME
+    cout << "cmdsSize " << cmdsSize << endl;
+#endif
+    
     string line;
     for (int i=0; i<cmdsSize; i++) {
+#if DEBUGME
+        getline(infile, line);
+#else
         getline(cin, line);
+#endif
         
         vector<string> tokens = split(line, ' ');
-        
-//        cout << "token count " <<  tokens.size() << endl;
         
         if (tokens.size() > 3 || tokens.size() == 0) {
             continue;
@@ -243,14 +275,22 @@ int main() {
         
         // command processing
         if (command[0].compare("BOUND") == 0) {
-//            cout << command[0] << " " << command[1] << endl;
+#if DEBUGME
+            cout << "cmd: " << command[0] << " " << command[1] << endl;
+#endif
             int newMaxSize = atoi(command[1].c_str());
             dll->setMaxSize(newMaxSize);
         }
         else if (command[0].compare("SET") == 0) {
+#if DEBUGME
+            cout << "cmd: " << command[0] << " " << command[1] << " " << command[2] << endl;
+#endif
             dll->insertFront(command[1], command[2]);
         }
         else if (command[0].compare("GET") == 0) {
+#if DEBUGME
+            cout << "cmd: " << command[0] << " " << command[1] << endl;
+#endif
             ListNode *aNode = dll->getNode(command[1]);
             if (aNode == nullptr) {
                 cout << "NULL" << endl;
@@ -259,6 +299,9 @@ int main() {
             }
         }
         else if (command[0].compare("PEEK") == 0) {
+#if DEBUGME
+            cout << "cmd: " << command[0] << " " << command[1] << endl;
+#endif
             ListNode *aNode = dll->peekNode(command[1]);
             if (aNode == nullptr) {
                 cout << "NULL" << endl;
@@ -267,18 +310,33 @@ int main() {
             }
         }
         else if (command[0].compare("DUMP") == 0) {
+#if DEBUGME
+            cout << "cmd: " << command[0] << endl;
+#endif
             vector<ListNode> vectList = dll->printAllWithKeyAlphabetical();
             for (int i=0; i<vectList.size(); i++) {
                 cout << vectList[i].key + " " + vectList[i].value << endl;
             }
         }
         else {
-
+#if DEBUGME
+            cout << "bad command" << endl;
+            return -1;
+#endif
         }
+        
+#if DEBUGME
+        dll->printDLL();
+#endif
         
         
     }
     
+#if DEBUGME
+    if (infile.is_open()) {
+        infile.close();
+    }
+#endif
     
     delete dll;
     
