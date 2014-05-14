@@ -183,6 +183,7 @@ ListNode* DoublyLinkedList::getNode(string k) {
     }
     aNode->prev = nullptr;
     aNode->next = this->head;
+    this->head->prev = aNode;
     this->head = aNode;
     return aNode;
 }
@@ -208,7 +209,7 @@ vector<ListNode> DoublyLinkedList::printAllWithKeyAlphabetical() {
         aNode = aNode->next;
     }
     
-    sort(vectList.begin(), vectList.end());
+//    sort(vectList.begin(), vectList.end());
     
     return vectList;
 }
@@ -231,6 +232,7 @@ std::vector<std::string> split(const std::string &s, char delim) {
 }
 
 #define DEBUGME 1
+#define PRINTALL 0
 
 int main() {
     
@@ -251,7 +253,7 @@ int main() {
 #endif
     int cmdsSize = atoi(numCommands.c_str());
 
-#if DEBUGME
+#if PRINTALL
     cout << "cmdsSize " << cmdsSize << endl;
 #endif
     
@@ -275,20 +277,20 @@ int main() {
         
         // command processing
         if (command[0].compare("BOUND") == 0) {
-#if DEBUGME
+#if PRINTALL
             cout << "cmd: " << command[0] << " " << command[1] << endl;
 #endif
             int newMaxSize = atoi(command[1].c_str());
             dll->setMaxSize(newMaxSize);
         }
         else if (command[0].compare("SET") == 0) {
-#if DEBUGME
+#if PRINTALL
             cout << "cmd: " << command[0] << " " << command[1] << " " << command[2] << endl;
 #endif
             dll->insertFront(command[1], command[2]);
         }
         else if (command[0].compare("GET") == 0) {
-#if DEBUGME
+#if PRINTALL
             cout << "cmd: " << command[0] << " " << command[1] << endl;
 #endif
             ListNode *aNode = dll->getNode(command[1]);
@@ -299,7 +301,7 @@ int main() {
             }
         }
         else if (command[0].compare("PEEK") == 0) {
-#if DEBUGME
+#if PRINTALL
             cout << "cmd: " << command[0] << " " << command[1] << endl;
 #endif
             ListNode *aNode = dll->peekNode(command[1]);
@@ -310,7 +312,7 @@ int main() {
             }
         }
         else if (command[0].compare("DUMP") == 0) {
-#if DEBUGME
+#if PRINTALL
             cout << "cmd: " << command[0] << endl;
 #endif
             vector<ListNode> vectList = dll->printAllWithKeyAlphabetical();
@@ -319,14 +321,14 @@ int main() {
             }
         }
         else {
-#if DEBUGME
+#if PRINTALL
             cout << "bad command" << endl;
             return -1;
 #endif
         }
         
-#if DEBUGME
-        dll->printDLL();
+#if PRINTALL
+//        dll->printDLL();
 #endif
         
         
