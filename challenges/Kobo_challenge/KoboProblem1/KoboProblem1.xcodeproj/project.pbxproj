@@ -1,0 +1,472 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6E3AFAC31953B0CD00F5AFF3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3AFAC21953B0CD00F5AFF3 /* Foundation.framework */; };
+		6E3AFAC51953B0CE00F5AFF3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3AFAC41953B0CE00F5AFF3 /* CoreGraphics.framework */; };
+		6E3AFAC71953B0CE00F5AFF3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3AFAC61953B0CE00F5AFF3 /* UIKit.framework */; };
+		6E3AFACD1953B0CE00F5AFF3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6E3AFACB1953B0CE00F5AFF3 /* InfoPlist.strings */; };
+		6E3AFACF1953B0CE00F5AFF3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E3AFACE1953B0CE00F5AFF3 /* main.m */; };
+		6E3AFAD31953B0CE00F5AFF3 /* KZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E3AFAD21953B0CE00F5AFF3 /* KZAppDelegate.m */; };
+		6E3AFAD61953B0CE00F5AFF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E3AFAD41953B0CE00F5AFF3 /* Main.storyboard */; };
+		6E3AFAD91953B0CE00F5AFF3 /* KZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E3AFAD81953B0CE00F5AFF3 /* KZViewController.m */; };
+		6E3AFADB1953B0CE00F5AFF3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E3AFADA1953B0CE00F5AFF3 /* Images.xcassets */; };
+		6E3AFAE21953B0CE00F5AFF3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3AFAE11953B0CE00F5AFF3 /* XCTest.framework */; };
+		6E3AFAE31953B0CE00F5AFF3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3AFAC21953B0CD00F5AFF3 /* Foundation.framework */; };
+		6E3AFAE41953B0CE00F5AFF3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3AFAC61953B0CE00F5AFF3 /* UIKit.framework */; };
+		6E3AFAEC1953B0CE00F5AFF3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6E3AFAEA1953B0CE00F5AFF3 /* InfoPlist.strings */; };
+		6E3AFAEE1953B0CE00F5AFF3 /* KoboProblem1Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E3AFAED1953B0CE00F5AFF3 /* KoboProblem1Tests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6E3AFAE51953B0CE00F5AFF3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6E3AFAB71953B0CD00F5AFF3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6E3AFABE1953B0CD00F5AFF3;
+			remoteInfo = KoboProblem1;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6E3AFABF1953B0CD00F5AFF3 /* KoboProblem1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KoboProblem1.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E3AFAC21953B0CD00F5AFF3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6E3AFAC41953B0CE00F5AFF3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6E3AFAC61953B0CE00F5AFF3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		6E3AFACA1953B0CE00F5AFF3 /* KoboProblem1-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KoboProblem1-Info.plist"; sourceTree = "<group>"; };
+		6E3AFACC1953B0CE00F5AFF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6E3AFACE1953B0CE00F5AFF3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6E3AFAD01953B0CE00F5AFF3 /* KoboProblem1-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KoboProblem1-Prefix.pch"; sourceTree = "<group>"; };
+		6E3AFAD11953B0CE00F5AFF3 /* KZAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KZAppDelegate.h; sourceTree = "<group>"; };
+		6E3AFAD21953B0CE00F5AFF3 /* KZAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KZAppDelegate.m; sourceTree = "<group>"; };
+		6E3AFAD51953B0CE00F5AFF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6E3AFAD71953B0CE00F5AFF3 /* KZViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KZViewController.h; sourceTree = "<group>"; };
+		6E3AFAD81953B0CE00F5AFF3 /* KZViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KZViewController.m; sourceTree = "<group>"; };
+		6E3AFADA1953B0CE00F5AFF3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		6E3AFAE01953B0CE00F5AFF3 /* KoboProblem1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KoboProblem1Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E3AFAE11953B0CE00F5AFF3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		6E3AFAE91953B0CE00F5AFF3 /* KoboProblem1Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KoboProblem1Tests-Info.plist"; sourceTree = "<group>"; };
+		6E3AFAEB1953B0CE00F5AFF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6E3AFAED1953B0CE00F5AFF3 /* KoboProblem1Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KoboProblem1Tests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6E3AFABC1953B0CD00F5AFF3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E3AFAC51953B0CE00F5AFF3 /* CoreGraphics.framework in Frameworks */,
+				6E3AFAC71953B0CE00F5AFF3 /* UIKit.framework in Frameworks */,
+				6E3AFAC31953B0CD00F5AFF3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E3AFADD1953B0CE00F5AFF3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E3AFAE21953B0CE00F5AFF3 /* XCTest.framework in Frameworks */,
+				6E3AFAE41953B0CE00F5AFF3 /* UIKit.framework in Frameworks */,
+				6E3AFAE31953B0CE00F5AFF3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6E3AFAB61953B0CD00F5AFF3 = {
+			isa = PBXGroup;
+			children = (
+				6E3AFAC81953B0CE00F5AFF3 /* KoboProblem1 */,
+				6E3AFAE71953B0CE00F5AFF3 /* KoboProblem1Tests */,
+				6E3AFAC11953B0CD00F5AFF3 /* Frameworks */,
+				6E3AFAC01953B0CD00F5AFF3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6E3AFAC01953B0CD00F5AFF3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6E3AFABF1953B0CD00F5AFF3 /* KoboProblem1.app */,
+				6E3AFAE01953B0CE00F5AFF3 /* KoboProblem1Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6E3AFAC11953B0CD00F5AFF3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6E3AFAC21953B0CD00F5AFF3 /* Foundation.framework */,
+				6E3AFAC41953B0CE00F5AFF3 /* CoreGraphics.framework */,
+				6E3AFAC61953B0CE00F5AFF3 /* UIKit.framework */,
+				6E3AFAE11953B0CE00F5AFF3 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6E3AFAC81953B0CE00F5AFF3 /* KoboProblem1 */ = {
+			isa = PBXGroup;
+			children = (
+				6E3AFAD11953B0CE00F5AFF3 /* KZAppDelegate.h */,
+				6E3AFAD21953B0CE00F5AFF3 /* KZAppDelegate.m */,
+				6E3AFAD41953B0CE00F5AFF3 /* Main.storyboard */,
+				6E3AFAD71953B0CE00F5AFF3 /* KZViewController.h */,
+				6E3AFAD81953B0CE00F5AFF3 /* KZViewController.m */,
+				6E3AFADA1953B0CE00F5AFF3 /* Images.xcassets */,
+				6E3AFAC91953B0CE00F5AFF3 /* Supporting Files */,
+			);
+			path = KoboProblem1;
+			sourceTree = "<group>";
+		};
+		6E3AFAC91953B0CE00F5AFF3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6E3AFACA1953B0CE00F5AFF3 /* KoboProblem1-Info.plist */,
+				6E3AFACB1953B0CE00F5AFF3 /* InfoPlist.strings */,
+				6E3AFACE1953B0CE00F5AFF3 /* main.m */,
+				6E3AFAD01953B0CE00F5AFF3 /* KoboProblem1-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6E3AFAE71953B0CE00F5AFF3 /* KoboProblem1Tests */ = {
+			isa = PBXGroup;
+			children = (
+				6E3AFAED1953B0CE00F5AFF3 /* KoboProblem1Tests.m */,
+				6E3AFAE81953B0CE00F5AFF3 /* Supporting Files */,
+			);
+			path = KoboProblem1Tests;
+			sourceTree = "<group>";
+		};
+		6E3AFAE81953B0CE00F5AFF3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6E3AFAE91953B0CE00F5AFF3 /* KoboProblem1Tests-Info.plist */,
+				6E3AFAEA1953B0CE00F5AFF3 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6E3AFABE1953B0CD00F5AFF3 /* KoboProblem1 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6E3AFAF11953B0CE00F5AFF3 /* Build configuration list for PBXNativeTarget "KoboProblem1" */;
+			buildPhases = (
+				6E3AFABB1953B0CD00F5AFF3 /* Sources */,
+				6E3AFABC1953B0CD00F5AFF3 /* Frameworks */,
+				6E3AFABD1953B0CD00F5AFF3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KoboProblem1;
+			productName = KoboProblem1;
+			productReference = 6E3AFABF1953B0CD00F5AFF3 /* KoboProblem1.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6E3AFADF1953B0CE00F5AFF3 /* KoboProblem1Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6E3AFAF41953B0CE00F5AFF3 /* Build configuration list for PBXNativeTarget "KoboProblem1Tests" */;
+			buildPhases = (
+				6E3AFADC1953B0CE00F5AFF3 /* Sources */,
+				6E3AFADD1953B0CE00F5AFF3 /* Frameworks */,
+				6E3AFADE1953B0CE00F5AFF3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6E3AFAE61953B0CE00F5AFF3 /* PBXTargetDependency */,
+			);
+			name = KoboProblem1Tests;
+			productName = KoboProblem1Tests;
+			productReference = 6E3AFAE01953B0CE00F5AFF3 /* KoboProblem1Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6E3AFAB71953B0CD00F5AFF3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = KZ;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = com.zou;
+				TargetAttributes = {
+					6E3AFADF1953B0CE00F5AFF3 = {
+						TestTargetID = 6E3AFABE1953B0CD00F5AFF3;
+					};
+				};
+			};
+			buildConfigurationList = 6E3AFABA1953B0CD00F5AFF3 /* Build configuration list for PBXProject "KoboProblem1" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6E3AFAB61953B0CD00F5AFF3;
+			productRefGroup = 6E3AFAC01953B0CD00F5AFF3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6E3AFABE1953B0CD00F5AFF3 /* KoboProblem1 */,
+				6E3AFADF1953B0CE00F5AFF3 /* KoboProblem1Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6E3AFABD1953B0CD00F5AFF3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E3AFADB1953B0CE00F5AFF3 /* Images.xcassets in Resources */,
+				6E3AFACD1953B0CE00F5AFF3 /* InfoPlist.strings in Resources */,
+				6E3AFAD61953B0CE00F5AFF3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E3AFADE1953B0CE00F5AFF3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E3AFAEC1953B0CE00F5AFF3 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6E3AFABB1953B0CD00F5AFF3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E3AFACF1953B0CE00F5AFF3 /* main.m in Sources */,
+				6E3AFAD31953B0CE00F5AFF3 /* KZAppDelegate.m in Sources */,
+				6E3AFAD91953B0CE00F5AFF3 /* KZViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E3AFADC1953B0CE00F5AFF3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E3AFAEE1953B0CE00F5AFF3 /* KoboProblem1Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6E3AFAE61953B0CE00F5AFF3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6E3AFABE1953B0CD00F5AFF3 /* KoboProblem1 */;
+			targetProxy = 6E3AFAE51953B0CE00F5AFF3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6E3AFACB1953B0CE00F5AFF3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6E3AFACC1953B0CE00F5AFF3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		6E3AFAD41953B0CE00F5AFF3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6E3AFAD51953B0CE00F5AFF3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6E3AFAEA1953B0CE00F5AFF3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6E3AFAEB1953B0CE00F5AFF3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6E3AFAEF1953B0CE00F5AFF3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		6E3AFAF01953B0CE00F5AFF3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6E3AFAF21953B0CE00F5AFF3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KoboProblem1/KoboProblem1-Prefix.pch";
+				INFOPLIST_FILE = "KoboProblem1/KoboProblem1-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		6E3AFAF31953B0CE00F5AFF3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KoboProblem1/KoboProblem1-Prefix.pch";
+				INFOPLIST_FILE = "KoboProblem1/KoboProblem1-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		6E3AFAF51953B0CE00F5AFF3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KoboProblem1.app/KoboProblem1";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KoboProblem1/KoboProblem1-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "KoboProblem1Tests/KoboProblem1Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		6E3AFAF61953B0CE00F5AFF3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KoboProblem1.app/KoboProblem1";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KoboProblem1/KoboProblem1-Prefix.pch";
+				INFOPLIST_FILE = "KoboProblem1Tests/KoboProblem1Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6E3AFABA1953B0CD00F5AFF3 /* Build configuration list for PBXProject "KoboProblem1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E3AFAEF1953B0CE00F5AFF3 /* Debug */,
+				6E3AFAF01953B0CE00F5AFF3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6E3AFAF11953B0CE00F5AFF3 /* Build configuration list for PBXNativeTarget "KoboProblem1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E3AFAF21953B0CE00F5AFF3 /* Debug */,
+				6E3AFAF31953B0CE00F5AFF3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6E3AFAF41953B0CE00F5AFF3 /* Build configuration list for PBXNativeTarget "KoboProblem1Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E3AFAF51953B0CE00F5AFF3 /* Debug */,
+				6E3AFAF61953B0CE00F5AFF3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6E3AFAB71953B0CD00F5AFF3 /* Project object */;
+}
